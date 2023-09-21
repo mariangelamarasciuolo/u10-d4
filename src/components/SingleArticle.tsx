@@ -1,15 +1,14 @@
 import { Card } from "react-bootstrap";
-import { Article } from "../interface/Article";
+import { Result } from "../interface/Article";
 
 interface SingleArticleProps {
-  art: Article;
-  chooseArt: (artTitle: string) => void;
+  art: Result;
 }
 
-const SingleArticle = ({ art, chooseArt }: SingleArticleProps) => {
+const SingleArticle = ({ art }: SingleArticleProps) => {
   return (
     <Card>
-      <Card.Img variant="top" src={art.imageUrl} />
+      <Card.Img variant="top" src={art.image_url} />
       <Card.Body>
         <Card.Title>{art.title}</Card.Title>
         <Card.Text>{art.summary}</Card.Text>

@@ -1,35 +1,32 @@
 import { useEffect, useState } from "react";
-import { Article } from "../interface/Article";
+import { ArtContain, Result } from "../interface/Article";
 import { Col, Container, Row } from "react-bootstrap";
 import SingleArticle from "./SingleArticle";
 
 const FetchArticles = () => {
-  const [articles, setArtcles] = useState<Article[]>([]);
-  const fetchArticle = async () => {
+  const [articles, setArtcles] = useState<Result[]>([]);
+  const fetchArticles = async () => {
     try {
       const resp = await fetch("https://api.spaceflightnewsapi.net/v4/articles");
       if (resp.ok) {
-        const artFromAPI = await resp.json();
-        setArtcles(artFromAPI);
+        const artContainFromAPI: ArtContain = await resp.json();
+        setArtcles(artContainFromAPI.results);
       }
     } catch (error) {
       console.log(error);
     }
   };
 
-  const chooseArt = (artTitle: string) => {
-    console.log("hai scelto" + artTitle);
-  };
   useEffect(() => {
-    fetchArticle();
+    fetchArticles();
   }, []);
 
   return (
     <Container>
       <Row className="justify-content-center">
-        {articles.results.map((art) => (
+        {articles.map((art: Result) => (
           <Col key={`id-${art.id}`}>
-            <SingleArticle art={art} chooseArt={chooseArt} />
+            <SingleArticle art={art} />
           </Col>
         ))}
       </Row>
